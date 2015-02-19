@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
     std::string mode = argv[1];
 
     if (mode == "slave") {
-        if (argc < 3) usage(argv[1]);
+        if (argc < 3) usage(argv[0]);
 
         fd = open(argv[2], O_RDWR);
         if (fd == -1) {
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
         char* pts_name = ptsname(fd);
         std::cerr << "ptsname: " << pts_name << std::endl;
     } else {
-        usage(argv[1]);
+        usage(argv[0]);
     }
 
     /* serial port parameters */
