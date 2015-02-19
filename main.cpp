@@ -6,13 +6,12 @@
  **/
 
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <unistd.h>
-#include <string.h>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <stdlib.h>
 #include <pthread.h>
 #include <termios.h>
 
