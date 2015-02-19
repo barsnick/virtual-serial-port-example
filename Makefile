@@ -2,7 +2,12 @@ CPPFLAGS += -O2 -Wall -Wextra
 LD = $(CXX)
 LDFLAGS += -lpthread
 
-all: virtual-serial-port-example
-virtual-serial-port-example: main.o
+TARGET = virtual-serial-port-example
+OBJECTS = main.o
+
+all: $(TARGET)
+$(TARGET): $(OBJECTS)
 	$(LD) -o $@ $< $(LDFLAGS)
-main.o: main.cpp
+
+clean:
+	-rm -f $(TARGET) $(OBJECTS)
