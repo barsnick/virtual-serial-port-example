@@ -25,7 +25,7 @@ void usage(char* cmd) {
 }
 
 void* reader_thread(void* pointer) {
-    int fd = (int)pointer;
+    int fd = *((int*)pointer);
     char inputbyte;
     while (read(fd, &inputbyte, 1) == 1) {
         std::cout << inputbyte;
@@ -87,7 +87,7 @@ int main(int argc, char** argv) {
 
     /* start reader thread */
     pthread_t thread;
-    pthread_create(&thread, 0, reader_thread, (void*) fd);
+    pthread_create(&thread, 0, reader_thread, (void*)(&fd));
 
     /* read from stdin and send it to the serial port */
     char c;
