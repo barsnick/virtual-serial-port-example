@@ -20,7 +20,7 @@
 
 void usage(char* cmd) {
     std::cerr << "usage: " << cmd << " slave|master [device, only in slave mode]" << std::endl;
-    exit(1);
+    exit(EXIT_FAILURE);
 }
 
 void* reader_thread(void* pointer) {
@@ -45,14 +45,15 @@ int main(int argc, char** argv) {
 
         fd = open(argv[2], O_RDWR);
         if (fd == -1) {
-            std::cerr << "error opening file" << std::endl;
+            std::cerr << "error opening file " << argv[2] << std::endl;
             return -1;
         }
 
-    }else if (mode=="master") {
-        fd = open("/dev/ptmx", O_RDWR | O_NOCTTY);
+    } else if (mode == "master") {
+        std::string device = "/dev/ptmx";
+        fd = open(device.c_str(), O_RDWR | O_NOCTTY);
         if (fd == -1) {
-            std::cerr << "error opening file" << std::endl;
+            std::cerr << "error opening file " << device << std::endl;
             return -1;
         }
 
@@ -62,6 +63,7 @@ int main(int argc, char** argv) {
         char* pts_name = ptsname(fd);
         std::cerr << "ptsname: " << pts_name << std::endl;
     } else {
+        std::cerr << "unknown mode " << mode << std::endl;
         usage(argv[0]);
     }
 
